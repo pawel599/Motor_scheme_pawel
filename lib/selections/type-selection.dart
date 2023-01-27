@@ -152,6 +152,7 @@ class _SelectionState extends State<TypeSelection> {
                         onChanged: (model) => setState(
                               () => selectecdModel = model,
                             ))),
+                SizedBox(width:21),
                 IconButton(
                   icon: const Icon(
                     Icons.arrow_forward_ios,
@@ -171,6 +172,18 @@ class _SelectionState extends State<TypeSelection> {
                     );
                   },
                 ),
+                SizedBox(width:21),
+                IconButton(
+                  icon: const Icon(
+                    Icons.favorite,
+                    size: 70.0,
+                    color: Colors.orange,
+                  ),
+                  onPressed: () {
+
+                  },
+                ),
+              SizedBox(width:21),
               ],
             )));
   }
