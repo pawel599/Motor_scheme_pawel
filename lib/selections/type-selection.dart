@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:motor_scheme/colors/colors.dart';
+import 'package:motor_scheme/cubits/fav_cubit.dart';
+import 'package:motor_scheme/models/vehicle_model.dart';
 import 'parts-selection.dart';
 
 class TypeSelection extends StatefulWidget {
   final String selectedBrand;
+
   const TypeSelection({
     required this.selectedBrand,
   });
@@ -71,6 +75,14 @@ class _SelectionState extends State<TypeSelection> {
   String? selectecdCategory = 'Enduro';
   String? selectecdYear = '2023';
 
+  Map<String, Color> appBarColor = {
+    'KTM': AppColors.ktmColor,
+    'Suzuki': AppColors.suzukiColor,
+    'Honda': AppColors.hondaColor,
+    'Yamaha': AppColors.yamahaColor,
+    'Kawasaki': AppColors.kawasakiColor
+  };
+
   @override
   Widget build(BuildContext context) {
     final selectedBrand = widget.selectedBrand;
@@ -81,22 +93,13 @@ class _SelectionState extends State<TypeSelection> {
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () => Navigator.of(context).pop(),
               ),
-              backgroundColor: selectedBrand == 'KTM'
-                  ? AppColors.ktmColor
-                  : selectedBrand == 'Suzuki'
-                      ? AppColors.suzukiColor
-                      : selectedBrand == 'Honda'
-                          ? AppColors.hondaColor
-                          : selectedBrand == 'Yamaha'
-                              ? AppColors.yamahaColor
-                              : selectedBrand == 'Kawasaki'
-                                  ? AppColors.kawasakiColor
-                                  : Colors.grey,
+              // XD to jest piekne
+              backgroundColor: appBarColor[selectedBrand],
               title: Text('WYBÓR MODELU MARKI: $selectedBrand'),
               centerTitle: true,
             ),
-            body: ListView(
-              children: <Widget>[
+            body: Column(
+              children: [
                 Center(
                   child: DropdownButtonFormField<String>(
                       decoration: const InputDecoration(
@@ -107,7 +110,7 @@ class _SelectionState extends State<TypeSelection> {
                                 value: year,
                                 child: Text(
                                   year,
-                                  style: TextStyle(fontSize: 24),
+                                  style: const TextStyle(fontSize: 24),
                                 ),
                               ))
                           .toList(),
@@ -152,8 +155,9 @@ class _SelectionState extends State<TypeSelection> {
                         onChanged: (model) => setState(
                               () => selectecdModel = model,
                             ))),
-                SizedBox(width:21),
+                const SizedBox(height: 21),
                 IconButton(
+                  padding: EdgeInsets.zero,
                   icon: const Icon(
                     Icons.arrow_forward_ios,
                     size: 70.0,
@@ -172,21 +176,24 @@ class _SelectionState extends State<TypeSelection> {
                     );
                   },
                 ),
-                SizedBox(width:21),
+                const SizedBox(height: 31),
                 IconButton(
+                  padding: EdgeInsets.zero,
                   icon: const Icon(
                     Icons.favorite,
                     size: 70.0,
                     color: Colors.orange,
                   ),
                   onPressed: () {
-
+                    context.read<FavCubit>().addFavorites(VehicleModel(
+                      brand: selectedBrand,
+                        type: selectecdCategory!,
+                        year: selectecdYear!,
+                        model: selectecdModel!));
                   },
                 ),
-              SizedBox(width:21),
+                const SizedBox(width: 21),
               ],
             )));
   }
-
-  decoration(String s) {}
 }
