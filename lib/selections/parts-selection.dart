@@ -30,6 +30,7 @@ class _PartsSelectionState extends State<PartsSelection> {
 
   List allData = [];
   String partsImageUrl = "";
+
   void _loadData() async {
     final selectecdYear = widget.selectecdYear;
     final selectecdModel = widget.selectecdModel;
@@ -85,6 +86,7 @@ class _PartsSelectionState extends State<PartsSelection> {
         floatHeaderSlivers: true,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
+
             floating: true,
             title: Text(
                 'Wybór części dla:\n$selectedBrand $selectecdModel $selectecdYear'),

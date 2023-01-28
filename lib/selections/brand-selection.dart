@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/brandData.dart';
+import 'package:motor_scheme/models/brand_data.dart';
 import 'type-selection.dart';
 
 class BrandSelection extends StatefulWidget {
